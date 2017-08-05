@@ -40,7 +40,7 @@ func (r *Robot) String() {
 func (r *Robot) Register(idx int) {
 	resp, err := doApiHttpRequest(&requestOptions{
 		Method: "POST",
-		URL:    fmt.Sprintf("%s/%s", HTTP_DOMAIN, "user/UserExtService/Register"),
+		URL:    fmt.Sprintf("%s/%s", GetHttpDomain(), "user/UserExtService/Register"),
 		Payload: fmt.Sprintf(`{"mobile":"%s", "password": "%s", "name": "%s", "code": "%s"}`,
 			r.Mobile, r.Password, r.Mobile, "string"),
 	})
@@ -59,7 +59,7 @@ func (r *Robot) Register(idx int) {
 func (r *Robot) Login(idx int) {
 	resp, err := doApiHttpRequest(&requestOptions{
 		Method:  "POST",
-		URL:     fmt.Sprintf("%s/%s", HTTP_DOMAIN, "user/UserExtService/MobileLogin"),
+		URL:     fmt.Sprintf("%s/%s", GetHttpDomain(), "user/UserExtService/MobileLogin"),
 		Payload: fmt.Sprintf(`{"mobile":"%s", "password": "%s"}`, r.Mobile, r.Password),
 	})
 	if err != nil {
@@ -89,7 +89,7 @@ func (r *Robot) fillRobotWithToken(res *loginRes, idx int) {
 }
 
 func (r *Robot) tcpConnect() {
-	session, err := link.Dial("tcp", TCP_DOMAIN, link.ProtocolFunc(Protocol), 0)
+	session, err := link.Dial("tcp", GetTcpDomain(), link.ProtocolFunc(Protocol), 0)
 	if err != nil {
 		log.Errorf("connector err %s", err.Error())
 		return

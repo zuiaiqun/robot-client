@@ -30,11 +30,13 @@ type httpResponse struct {
 }
 
 var gRobots = make(map[int]Robot, ROBOT_SIZE)
+var gIp string
+var gHttpPort, gTcpPort string
 
 func doApiWithUserInput(r Robot, srv, payload string, withToken bool) (err error) {
 	req := &requestOptions{
 		Method:  "POST",
-		URL:     fmt.Sprintf("%s/%s", HTTP_DOMAIN, srv),
+		URL:     fmt.Sprintf("%s/%s", GetHttpDomain(), srv),
 		Payload: payload,
 	}
 	if withToken {
@@ -175,6 +177,9 @@ func handleUserInput(msg string) {
 func main() {
 	logName := flag.String("log", "log.xml", "file name")
 	historyFile := flag.String("hf", ".history_file", "history file")
+	gIp = *flag.String("ip", "127.0.0.1", "ip")
+	gHttpPort = *flag.String("http_port", "18084", "http_port")
+	gTcpPort = *flag.String("tcp_port", "15324", "tcp_port")
 	flag.Parse()
 
 	logger, err := log.LoggerFromConfigAsFile(*logName)

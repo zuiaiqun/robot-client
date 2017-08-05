@@ -9,11 +9,11 @@ const (
 )
 
 const (
-	//HTTP_DOMAIN = "http://127.0.0.1:18084"
-	HTTP_DOMAIN = "http://192.168.1.206:8084"
-	//TCP_DOMAIN  = "http://127.0.0.1:15324"
+//HTTP_DOMAIN = "http://127.0.0.1:18084"
+//HTTP_DOMAIN = "http://192.168.1.206:8084"
+//TCP_DOMAIN  = "127.0.0.1:15324"
 
-	TCP_DOMAIN = "192.168.1.206:5324"
+//TCP_DOMAIN = "192.168.1.206:5324"
 )
 
 type robotConf struct {
@@ -35,4 +35,12 @@ func init() {
 			DeviceID: "string",
 		}
 	}
+}
+
+func GetHttpDomain() string {
+	return fmt.Sprintf("http://%s:%s", gIp, gHttpPort)
+}
+
+func GetTcpDomain() string {
+	return fmt.Sprintf("%s:%s", gIp, gTcpPort)
 }
